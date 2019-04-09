@@ -38,7 +38,7 @@ $("#add-name").on("click", function(event) {
 			database.ref().child("/players/player1").set(player1);
 
 			database.ref().child("/turn").set(1);
-
+			$("#playerPanel2").animate({opacity: "0.3"});
 			database.ref("/players/player1").onDisconnect().remove();
 		} else if( (player1 !== null) && (player2 === null) ) {
 			// Adding player2
@@ -54,10 +54,11 @@ $("#add-name").on("click", function(event) {
 			};
 
 			database.ref().child("/players/player2").set(player2);
+			$("#playerPanel1").animate({opacity: "0.3"});
 			database.ref("/players/player2").onDisconnect().remove();
 		}
-
-		var msg = yourPlayerName + " has joined!";
+		$("#name-form").hide();
+		var msg = yourPlayerName + " has joined the game!";
 		var chatKey = database.ref().child("/chat/").push().key;
 		database.ref("/chat/" + chatKey).set(msg);
 		$("#name-input").val("");	
@@ -69,8 +70,8 @@ database.ref("/players/").on("value", function(snapshot) { //creates a /players 
     player1 = snapshot.val().player1; //if so, the value of the database snapshot is assigned to player1
     player1Name = player1.name; //and we also assign player1 name
 
-    $("#player-one-name").text(player1Name); //update the DOM with player1 info
-    $("#player-one-stats").html("Wins: " + player1.win + "Losses: " + player1.loss + "Tie: " + player1.tie)
+    $("#playerOneName").text(player1Name); //update the DOM with player1 info
+    $("#player1Stats").html("Wins: " + player1.win + " | Losses: " + player1.loss + " | Ties: " + player1.tie)
   } else { //if player1 does not exist on the database, set it to null
 		player1 = null;
 		player1Name = "";
@@ -91,7 +92,7 @@ database.ref("/players/").on("value", function(snapshot) { //creates a /players 
 		player2Name = player2.name;
 
 		$("#playerTwoName").text(player2Name);
-		$("#player2Stats").html("Win: " + player2.win + ", Loss: " + player2.loss + ", Tie: " + player2.tie);
+		$("#player2Stats").html("Wins: " + player2.win + " | Losses: " + player2.loss + " | Ties: " + player2.tie);
 	} else {
 		player2 = null;
 		player2Name = "";
@@ -108,7 +109,6 @@ database.ref("/players/").on("value", function(snapshot) { //creates a /players 
 	// If both players are now present, it's player1's turn
 	if (player1 !== null && player2 !== null) {
 		$("#playerPanel1").addClass("playerPanelTurn");
-
 		$("#waitingNotice").html("Waiting for " + player1Name + " to choose...");
 	}
 
@@ -193,7 +193,7 @@ $("#chat-send").on("click", function(event) {
 	event.preventDefault();
 
 	if ( (yourPlayerName !== "") && ($("#chat-input").val().trim() !== "") ) {
-		var msg = yourPlayerName + ": " + $("#chat-input").val().trim();
+		var msg = yourPlayerName + " says: " + $("#chat-input").val().trim();
 		$("#chat-input").val("");
 		var chatKey = database.ref().child("/chat/").push().key;
 		database.ref("/chat/" + chatKey).set(msg);
@@ -204,7 +204,7 @@ $("#chat-send").on("click", function(event) {
 $("#playerPanel1").on("click", ".panelOption", function(event) {
 	event.preventDefault();
 	if (player1 && player2 && (yourPlayerName === player1.name) && (turn === 1) ) {
-
+		
 		var choice = $(this).text().trim();
 		if (choice === 'Rock'){
 			$("#p1Rock").addClass("playerSelectedOpt");
@@ -214,6 +214,7 @@ $("#playerPanel1").on("click", ".panelOption", function(event) {
 			$("#p1Scissors").addClass("playerSelectedOpt");
 		}
 
+		
 		player1Choice = choice;
 		database.ref().child("/players/player1/choice").set(choice);
 		turn = 2;
@@ -237,12 +238,12 @@ $("#playerPanel2").on("click", ".panelOption", function(event) {
 
 		player2Choice = choice;
 		database.ref().child("/players/player2/choice").set(choice);
-		rpsCompare();
+		gameLogic();
 	}
 });
 
-// rpsCompare is the main rock/paper/scissors logic to see which player wins
-function rpsCompare() {
+// gameLogic is the main rock/paper/scissors logic to see which player wins
+function gameLogic() {
 
 	if (player1.choice === "Rock") {
 		if (player2.choice === "Rock") {
@@ -269,7 +270,7 @@ function rpsCompare() {
 			database.ref().child("/players/player2/loss").set(player2.loss + 1);
 		} else if (player2.choice === "Paper") {
 			// Tie
-			database.ref().child("/outcome/").set("Tie game!");
+			database.ref().child("/outcome/").set("It's a tie!");
 			database.ref().child("/players/player1/tie").set(player1.tie + 1);
 			database.ref().child("/players/player2/tie").set(player2.tie + 1);
 		} else { // Scissors
@@ -292,7 +293,7 @@ function rpsCompare() {
 			database.ref().child("/players/player2/loss").set(player2.loss + 1);
 		} else {
 			// Tie
-			database.ref().child("/outcome/").set("Tie game!");
+			database.ref().child("/outcome/").set("It's a tie!");
 			database.ref().child("/players/player1/tie").set(player1.tie + 1);
 			database.ref().child("/players/player2/tie").set(player2.tie + 1);
 		}

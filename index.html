@@ -1,139 +1,120 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-    <link href="assets/css/style.css" rel="stylesheet">
-    <title>RPS Multiplayer</title>
-</head>
-<body>  
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="./assets/javascript/app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>    
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Play with a friend: Rock, paper, scissors</title>
-
-	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-	<script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock, Paper, Scissors</title>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-
-	<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
-
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-	<link rel="stylesheet" href="assets/css/style.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Let's play Rock-Paper-Scissors!</h1>
-		</div>
-	</div>
-	<div class="container">
-		<div class="formPanel">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="https://www.pinclipart.com/picdir/big/51-511607_rock-paper-scissors-scissors-clipart.png" width="150" height="100" class="d-inline-block align-center" alt="">
+          Rock, Paper, Scissors
+        </a>
+    </nav>
+	
+	<div class="container-fluid">
+		<div class="row name">
 			<form id="name-form">
 				<input type="text" id="name-input" placeholder="Your Name">
-				<input id="add-name" type="submit" value="Start">
+				<button id="add-name" type="submit" value="Start">Start</button>
 			</form>
 		</div>
-		<div class="panel panel-default">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-12">
-					<div class="panel panel-default playerPanel" id="playerPanel1">
-						<div class="panel-heading panelName" style="min-height: 10;">
-							<h3 class="panel-title text-center" id="playerOneName"></h3>
-						</div>
+            <div class="row game-things">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="panel panel-default playerPanel" id="playerPanel1">
+                        <div class="panel-heading panelName" style="min-height: 10;">
+                            <h3 class="panel-title text-center" id="playerOneName"></h3>
+                        </div>
 
-						<div id="p1Rock" class="panel-body panelOption text-center">
-							<div class="option">Rock</div>
-						</div>
+                        <div id="p1Rock" class="panel-body panelOption text-center">
+                            <span class="option">Rock</span>
+                            <img src="assets/images/rock-cartoon.png" width="70px" height="70px";>
+                        </div>
 
-						<div id="p1Paper" class="panel-body panelOption text-center">
-							<div class="option">Paper</div>
-						</div>
+                        <div id="p1Paper" class="panel-body panelOption text-center">
+                            <span class="option">Paper</span>
+                            <img src="assets/images/paper-cartoon.png" width="70px" height="70px";>
+                        </div>
 
-						<div id="p1Scissors" class="panel-body panelOption text-center">
-							<div class="option">Scissors</div>
-						</div>
-						<div class="panel-body panelStats text-center">
-							<div class="stats" id="player1Stats"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-12">
-					<div class="panel panel-default gamePanel">
-						<h3 class="panel-title text-center" id="waitingNotice"></h3>
-						<h3 class="panel-title text-center" id="roundOutcome">Rock-Paper-Scissors</h3>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-12">
-					<div class="panel panel-default playerPanel" id="playerPanel2">
-						<div class="panel-heading panelName">
-							<h3 class="panel-title text-center" id="playerTwoName"></h3>
-						</div>
+                        <div id="p1Scissors" class="panel-body panelOption text-center">
+                            <span class="option">Scissors</span>
+                            <img src="assets/images/scissors-cartoon.png" width="70px" height="70px";>
+                        </div>
+                        <div class="panel-body panelStats text-center">
+                            <div class="stats" id="player1Stats"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="panel panel-default gamePanel">
+                        <h3 class="panel-title text-center" id="waitingNotice"></h3>
+                        <h3 class="panel-title text-center" id="roundOutcome">Rock-Paper-Scissors</h3>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="panel panel-default playerPanel" id="playerPanel2">
+                        <div class="panel-heading panelName">
+                            <h3 class="panel-title text-center" id="playerTwoName"></h3>
+                        </div>
 
-						<div id="p2Rock" class="panel-body panelOption text-center">
-							<div class="option">Rock</div>
-						</div>
+                        <div id="p2Rock" class="panel-body panelOption text-center">
+                            <span class="option">Rock</span>
+                            <img src="assets/images/rock-cartoon.png" width="70px" height="70px";>
+                        </div>
 
-						<div id="p2Paper" class="panel-body panelOption text-center">
-							<div class="option">Paper</div>
-						</div>
+                        <div id="p2Paper" class="panel-body panelOption text-center">
+                            <span class="option">Paper</span>
+                            <img src="assets/images/paper-cartoon.png" width="70px" height="70px";>
+                        </div>
 
-						<div id="p2Scissors" class="panel-body panelOption text-center">
-							<div class="option">Scissors</div>
-						</div>
+                        <div id="p2Scissors" class="panel-body panelOption text-center">
+                            <span class="option">Scissors</span>
+                            <img src="assets/images/scissors-cartoon.png" width="70px" height="70px";>
+                        </div>
 
-						<div class="panel-body panelStats text-center">
-							<div class="stats" id="player2Stats"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div id="chatDisplay"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="chatInput">
-					<div class="chatLabel">Type Your Message!</div>
+                        <div class="panel-body panelStats text-center">
+                            <div class="stats" id="player2Stats"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row chat-full">
+                <div class="col-sm-12">
+                    <div id="chatDisplay"></div>
+                </div>
+                <div class="chatInput">
+                    <div class="chatLabel">Chat away!</div>
+                    <div class="chatPanel">
+                        <form id="chat-form">
+                            <span>
+                                <textarea type="text" id="chat-input" rows="3" cols="20"></textarea>
+                                <input id="chat-send" type="submit" value="Send">
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-					<div class="chatPanel">
-						<form id="chat-form">
-							<textarea type="text" id="chat-input"></textarea>
-							<input id="chat-send" type="submit" value="Send">
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<script type="text/javascript" src="./assets/javascript/app.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./assets/javascript/app.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,105 @@
+body {
+    background-image: url("../images/giftly.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: lightgray;
+    
+}
+
+.container {
+    margin-top: 50px;
+}
+
+#name-form {
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.game-things {
+    
+    background-color: rgb(193, 210, 232, 0.3);
+    padding: 20px;  
+}
+
+.panelOption {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#p1Rock, #p1Scissors, #p2Rock, #p2Scissors {
+    background-color: lightgray;
+    
+}
+
+#p1Rock:hover, #p1Scissors:hover, #p2Rock:hover, #p2Scissors:hover {
+    background-color: #2F82A3;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#p1Paper, #p2Paper {
+    background-color: white;
+}
+
+#p1Paper:hover, #p2Paper:hover {
+    background-color: #699EB3;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#player1Stats, #player2Stats {
+    margin: 10px;
+    background-color:rgb(51, 133, 198);
+    color: white;
+    padding: 15px;
+}
+
+.name {
+    margin-top: 20px;
+}
+
+.chat{
+    position: static;
+    margin-top: 2%;
+       
+}
+
+.chatColorDisconnected {
+    color: black;
+    font-style: italic;
+}
+
+.chatColorJoined {
+    color: green;
+    font-style: italic;
+}
+
+.chatColor1 {
+    color: blue;
+    background-color: white;
+    padding-left: 5px;
+}
+
+.chatColor2 {
+    color: purple;
+    background-color: white;
+    padding-left: 5px;
+}
+
+.chat-full {
+background-color: rgb(17, 61, 128, 0.3);
+padding-bottom: 50px;
+}
+
+.chatInput {
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+#chat-send {
+    margin-bottom: 10px;
+    position: absolute;
+}
